@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargo Calculator</title>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <div id="app" v-cloak>
+        <div>
+            <span>实重：</span>
+            <input type="number" v-model="weight" />
+            <span>kg</span>
+        </div>
+        <div>
+            <span>长：</span>
+            <input type="number" v-model="length" />
+            <span>cm</span>
+        </div>
+        <div>
+            <span>宽：</span>
+            <input type="number" v-model="width" />
+            <span>cm</span>
+        </div>
+        <div>
+            <span>高：</span>
+            <input type="number" v-model="height" />
+            <span>cm</span>
+        </div>
+        <div>
+            <span>首重单格：</span>
+            <input type="number" v-model="firstWeightPrice" />
+            <span>元/0.5kg</span>
+        </div>
+        <div>
+            <span>续重单价：</span>
+            <input type="number" v-model="continuedWeightPrices" />
+            <span>元/0.5kg</span>
+        </div>
+        <button @click="onRest">重置</button>
+        <button @click="onClick">计算</button>
+        <template v-if="finalWeight!=null">
+            <div>
+                <span>重量:</span>·
+                <span>{{finalWeight}}</span>
+                <span>kg</span>
+            </div>
+            <div>
+                <span>最终重量:</span>
+                <span>{{finalFormatWeight}}</span>
+                <span>kg</span>
+            </div>
+            <div>
+                <span>最终附加费:</span>
+                <span>{{finalSurcharge}}</span>
+                <span>元</span>
+            </div>
+            <div>
+                <span>最终价格:</span>
+                <span>{{finalPrice}}</span>
+                <span>元</span>
+            </div>
+        </template>
+    </div>
+    <!-- <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script> -->
+    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.js"></script>
+    <script src="https://cdn.bootcss.com/vue-strap/1.1.40/vue-strap.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
