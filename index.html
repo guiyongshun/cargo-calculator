@@ -10,32 +10,32 @@
     <div id="app" v-cloak>
         <div>
             <span>实重：</span>
-            <input type="number" v-model="weight" />
+            <input type="number" v-model.number="weight" />
             <span>kg</span>
         </div>
         <div>
             <span>长：</span>
-            <input type="number" v-model="length" />
+            <input type="number" v-model.number="length" />
             <span>cm</span>
         </div>
         <div>
             <span>宽：</span>
-            <input type="number" v-model="width" />
+            <input type="number" v-model.number="width" />
             <span>cm</span>
         </div>
         <div>
             <span>高：</span>
-            <input type="number" v-model="height" />
+            <input type="number" v-model.number="height" />
             <span>cm</span>
         </div>
         <div>
             <span>首重单格：</span>
-            <input type="number" v-model="firstWeightPrice" />
+            <input type="number" v-model.number="firstWeightPrice" />
             <span>元/0.5kg</span>
         </div>
         <div>
             <span>续重单价：</span>
-            <input type="number" v-model="continuedWeightPrices" />
+            <input type="number" v-model.number="continuedWeightPrices" />
             <span>元/0.5kg</span>
         </div>
         <button @click="onRest">重置</button>

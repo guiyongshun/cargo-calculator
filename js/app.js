@@ -42,7 +42,7 @@ new Vue({
             Object.assign(this.$data, this.$options.data())
         },
         sortLengthArray: function(){
-            return [this.length,this.width,this.height].sort((a,b)=>a-b)
+            return [this.length,this.width,this.height].sort((a,b)=>b-a)
         },
         //获取最终重量
         getFinalWeight: function(){
@@ -106,7 +106,7 @@ new Vue({
         //获取最终总价格
         getFinalPrice: function(){
             const {finalFormatWeight, firstWeightPrice, continuedWeightPrices, finalSurcharge} = this
-            const weightPrice = 0.5 * firstWeightPrice + (finalFormatWeight - 0.5) * continuedWeightPrices
+            const weightPrice = 0.5 * firstWeightPrice * 2 + (finalFormatWeight - 0.5) * continuedWeightPrices * 2
             
             return weightPrice + finalSurcharge
         }
