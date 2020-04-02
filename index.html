@@ -14,29 +14,27 @@
     <div id="app" class="row" v-cloak>
         <div class="field-wrap col-xs-10 col-sm-6 col-md-4" >
             <q-form ref="myForm" @submit="onSubmit" @reset="onReset" class="field-content">
-                <q-input v-model.number="weight" label="实重 *" lazy-rules type="text" clearable class="field-item"
-                    :rules="[onRequired]">
+                <q-input v-model.number="weight" label="实重 *" lazy-rules type="number" clearable class="field-item"
+                    :rules="[onRequired]" step="0.001">
                     <template v-slot:append>kg</template>
                 </q-input>
                 <q-input v-model.number="length" label="长 *" lazy-rules type="number" clearable class="field-item"
-                    :rules="[onRequired]">
+                    :rules="[onRequired]" step="0.001">
                     <template v-slot:append>cm</template>
                 </q-input>
                 <q-input v-model.number="width" label="宽 *" lazy-rules type="number" clearable class="field-item"
-                    :rules="[onRequired]">
+                    :rules="[onRequired]" step="0.001">
                     <template v-slot:append>cm</template>
                 </q-input>
                 <q-input v-model.number="height" label="高 *" lazy-rules type="number" clearable class="field-item"
-                    :rules="[onRequired]">
+                    :rules="[onRequired]" step="0.001">
                     <template v-slot:append>cm</template>
                 </q-input>
-                <q-input v-model.number="firstWeightPrice" label="首重单价 *" lazy-rules type="number" clearable class="field-item"
-                    :rules="[onRequired]">
-                    <template v-slot:prepend>¥</template>
+                <q-input v-model.number="firstWeightPrice" label="首重单价 *" lazy-rules type="number" clearable class="field-item" prefix="¥"
+                    :rules="[onRequired]" step="0.001">
                 </q-input>
-                <q-input v-model.number="continuedWeightPrices" label="续重单价 *" lazy-rules type="number" clearable class="field-item"
-                    :rules="[onRequired]">
-                    <template v-slot:prepend>¥</template>
+                <q-input v-model.number="continuedWeightPrices" label="续重单价 *" lazy-rules type="number" clearable class="field-item" prefix="¥"
+                    :rules="[onRequired]" step="0.001">
                 </q-input>
                 <q-field
                     :value="isIrregular"
@@ -90,7 +88,7 @@
     <script src="js/lib/quasar.ie.polyfills.umd.min.js"></script>
     <script src="js/lib/vue.min.js"></script>
     <script src="js/lib/quasar.umd.min.js"></script>
-    <script src="js/lib/zh-hans.umd.min.js"></script>
+    <!-- <script src="js/lib/zh-hans.umd.min.js"></script> -->
     <script src="js/lib/math.min.js"></script>
     <script src="js/app.js"></script>
 </body>

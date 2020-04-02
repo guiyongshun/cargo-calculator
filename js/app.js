@@ -113,6 +113,10 @@ new Vue({
         },
         onRequired: function(val){
             return val && val > 0 || '请输出对应项'
+        },
+        onInput: function(value){
+            const a = value.match(/^\d*(\.?\d{0,1})/g)[0]
+            return a
         }
     }
 })
