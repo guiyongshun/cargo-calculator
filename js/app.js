@@ -23,22 +23,22 @@ new Vue({
     computed: {
         //体积
         volume: function(){
-            return this.length * this.width * this.height
+            return math.evaluate(`${this.length} * ${this.width} * ${this.height}`)
         },
         //体积重 长x宽x高/6000
         volumeWeight: function(){
-            return this.volume/6000
+            return math.evaluate(`${this.volume} / 6000`)
         },
     },
     methods: {
-        onClick: function(){
+        onSubmit: function(){
             this.finalWeight = this.getFinalWeight()
             this.finalFormatWeight = this.formatWeight()
             this.finalSurcharge = this.getFinalSurcharge()
             
             this.finalPrice = this.getFinalPrice()
         },
-        onRest: function(){
+        onReset : function(){
             Object.assign(this.$data, this.$options.data())
         },
         sortLengthArray: function(){
@@ -48,25 +48,25 @@ new Vue({
         getFinalWeight: function(){
             if(this.weight >= this.volumeWeight){//实重大于等于体积重
                 return this.weight
-            }else if(this.volumeWeight - this.weight > 10){//体积重-实重大于10
-                return this.volume / 12000
+            }else if(math.evaluate(`${this.volumeWeight} - ${this.weight}`) > 10){//体积重-实重大于10
+                return math.evaluate(`${this.volume} / 12000`)
             }else{//体积重大于实重
                 if(this.weight <= 4.5){//实重小于等于4.5
-                    if(this.volumeWeight/this.weight <= 2){
+                    if(math.evaluate(`${this.volumeWeight} / ${this.weight}`) <= 2){
                         return this.weight
                     }else{
-                        return this.volume/8000
+                        return math.evaluate(`${this.volume} / 8000`)
                     }
                 }else{//实重大于4.5
-                    return Math.max(this.volume/8000,this.weight)
+                    return Math.max(math.evaluate(`${this.volume} / 8000`),this.weight)
                 }
             }
         },
         //格式化重量 确保重量末尾没有小数，或者存在一位小数且值为5
         formatWeight: function () {
-            const jin = this.finalWeight * 2
+            const jin = math.evaluate(`${this.finalWeight} * 2`)
             
-            return Math.ceil(jin)/2
+            return math.evaluate(`${Math.ceil(jin)} / 2`)
         },
         //获取最终附加费
         getFinalSurcharge: function(){
@@ -89,7 +89,7 @@ new Vue({
                 price += 100
             }
 
-            if(maxLength + (secondLength + thirdLength) * 2 > 330){
+            if(math.evaluate(`${maxLength} + (${secondLength} + ${thirdLength}) * 2`) > 330){
                 price += 150
             }
 
@@ -106,9 +106,13 @@ new Vue({
         //获取最终总价格
         getFinalPrice: function(){
             const {finalFormatWeight, firstWeightPrice, continuedWeightPrices, finalSurcharge} = this
-            const weightPrice = 0.5 * firstWeightPrice * 2 + (finalFormatWeight - 0.5) * continuedWeightPrices * 2
+            // const weightPrice = 0.5 * firstWeightPrice * 2 + (finalFormatWeight - 0.5) * continuedWeightPrices * 2
+            const weightPrice = math.evaluate(`0.5 * ${firstWeightPrice} * 2 + (${finalFormatWeight} - 0.5) * ${continuedWeightPrices} * 2`)
             
-            return weightPrice + finalSurcharge
+            return math.evaluate(` ${weightPrice} + ${finalSurcharge}`)
+        },
+        onRequired: function(val){
+            return val && val > 0 || '请输出对应项'
         }
     }
 })

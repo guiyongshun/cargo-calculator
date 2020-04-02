@@ -1,3 +1,33 @@
 [v-cloak]{
     display: none;
 }
+
+.field-wrap {
+    margin: 50px auto 0 auto;
+}
+
+.field-content {
+    
+}
+
+.field-item {
+    /* margin-bottom: 10px; */
+}
+
+.field-last-item {
+    margin-bottom: 20px;
+}
+
+.card-area{
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.card-item{
+    margin-left: 10px;
+}
+
+.card-hr{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

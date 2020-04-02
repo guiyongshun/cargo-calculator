@@ -1,71 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cargo Calculator</title>
+    <link rel="stylesheet" href="https://fonts.loli.net/icon?family=Roboto:100,300,400,500,700,900|Material+Icons">
+    <link rel="stylesheet" href="css/quasar.min.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
+
 <body>
-    <div id="app" v-cloak>
-        <div>
-            <span>实重：</span>
-            <input type="number" v-model.number="weight" />
-            <span>kg</span>
+    <div id="app" class="row" v-cloak>
+        <div class="field-wrap col-xs-10 col-sm-6 col-md-4" >
+            <q-form ref="myForm" @submit="onSubmit" @reset="onReset" class="field-content">
+                <q-input v-model.number="weight" label="实重 *" lazy-rules type="text" clearable class="field-item"
+                    :rules="[onRequired]">
+                    <template v-slot:append>kg</template>
+                </q-input>
+                <q-input v-model.number="length" label="长 *" lazy-rules type="number" clearable class="field-item"
+                    :rules="[onRequired]">
+                    <template v-slot:append>cm</template>
+                </q-input>
+                <q-input v-model.number="width" label="宽 *" lazy-rules type="number" clearable class="field-item"
+                    :rules="[onRequired]">
+                    <template v-slot:append>cm</template>
+                </q-input>
+                <q-input v-model.number="height" label="高 *" lazy-rules type="number" clearable class="field-item"
+                    :rules="[onRequired]">
+                    <template v-slot:append>cm</template>
+                </q-input>
+                <q-input v-model.number="firstWeightPrice" label="首重单价 *" lazy-rules type="number" clearable class="field-item"
+                    :rules="[onRequired]">
+                    <template v-slot:prepend>¥</template>
+                </q-input>
+                <q-input v-model.number="continuedWeightPrices" label="续重单价 *" lazy-rules type="number" clearable class="field-item"
+                    :rules="[onRequired]">
+                    <template v-slot:prepend>¥</template>
+                </q-input>
+                <q-field
+                    :value="isIrregular"
+                    label="是否不规则形状"
+                    class="field-last-item q-mt-xs"
+                >
+                    <template v-slot:control>
+                        <q-toggle v-model="isIrregular" />
+                    </template>
+                </q-field>
+                <div class="submit-area">
+                    <q-btn label="计算" type="submit" color="primary"></q-btn>
+                    <q-btn label="重置" type="reset" color="primary" flat class="q-ml-sm"></q-btn>
+                </div>
+            </q-form>
+
+            <q-card class="card-area" flat bordered v-if="finalWeight!=null">
+                <q-card-section horizontal class="card-item text-body1"></q-card-section`>
+                    <span class="q-mr-sm">重量:</span>
+                    <span class="text-primary">{{finalWeight}}</span>
+                    <span class="q-ml-xs text-primary">kg</span>
+                </q-card-section>
+
+                <q-separator inset class="card-hr"></q-separator>
+
+                <q-card-section horizontal class="card-item text-body1">
+                    <span class="q-mr-sm">最终重量:</span>
+                    <span class="text-primary">{{finalFormatWeight}}</span>
+                    <span class="q-ml-xs text-primary">kg</span>
+                </q-card-section>
+
+                <q-separator inset class="card-hr"></q-separator>
+
+                <q-card-section horizontal class="card-item text-body1">
+                    <span class="q-mr-sm">最终附加费:</span>
+                    <span class="text-primary">{{finalSurcharge}}</span>
+                    <span class="q-ml-xs text-primary">元</span>
+                </q-card-section>
+
+                <q-separator inset class="card-hr"></q-separator>
+
+                <q-card-section horizontal class="card-item text-body1">
+                    <span class="q-mr-sm">最终价格:</span>
+                    <span class="text-primary">{{finalPrice}}</span>
+                    <span class="q-ml-xs text-primary">元</span>
+                </q-card-section>
+            </q-card>
         </div>
-        <div>
-            <span>长：</span>
-            <input type="number" v-model.number="length" />
-            <span>cm</span>
-        </div>
-        <div>
-            <span>宽：</span>
-            <input type="number" v-model.number="width" />
-            <span>cm</span>
-        </div>
-        <div>
-            <span>高：</span>
-            <input type="number" v-model.number="height" />
-            <span>cm</span>
-        </div>
-        <div>
-            <span>首重单格：</span>
-            <input type="number" v-model.number="firstWeightPrice" />
-            <span>元/0.5kg</span>
-        </div>
-        <div>
-            <span>续重单价：</span>
-            <input type="number" v-model.number="continuedWeightPrices" />
-            <span>元/0.5kg</span>
-        </div>
-        <button @click="onRest">重置</button>
-        <button @click="onClick">计算</button>
-        <template v-if="finalWeight!=null">
-            <div>
-                <span>重量:</span>·
-                <span>{{finalWeight}}</span>
-                <span>kg</span>
-            </div>
-            <div>
-                <span>最终重量:</span>
-                <span>{{finalFormatWeight}}</span>
-                <span>kg</span>
-            </div>
-            <div>
-                <span>最终附加费:</span>
-                <span>{{finalSurcharge}}</span>
-                <span>元</span>
-            </div>
-            <div>
-                <span>最终价格:</span>
-                <span>{{finalPrice}}</span>
-                <span>元</span>
-            </div>
-        </template>
     </div>
-    <!-- <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script> -->
-    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.js"></script>
-    <script src="https://cdn.bootcss.com/vue-strap/1.1.40/vue-strap.min.js"></script>
+
+    <script src="js/lib/quasar.ie.polyfills.umd.min.js"></script>
+    <script src="js/lib/vue.min.js"></script>
+    <script src="js/lib/quasar.umd.min.js"></script>
+    <script src="js/lib/zh-hans.umd.min.js"></script>
+    <script src="js/lib/math.min.js"></script>
     <script src="js/app.js"></script>
 </body>
+
 </html>
